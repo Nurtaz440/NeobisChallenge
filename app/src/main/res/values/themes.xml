@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.NeobisChallengeAndroidApp" parent="Base.Theme.NeobisChallengeAndroidApp" />
+    <style name="some_id">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 </resources>
