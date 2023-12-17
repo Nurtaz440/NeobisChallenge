@@ -10,4 +10,19 @@
         android:name="com.example.neobischallengeandroidapp.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="com.example.neobischallengeandroidapp.ui.basket.BasketFragment"
+        android:label="fragment_basket"
+        tools:layout="@layout/fragment_basket" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.neobischallengeandroidapp.ui.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.neobischallengeandroidapp.ui.info.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" />
 </navigation>
