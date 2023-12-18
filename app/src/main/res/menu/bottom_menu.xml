@@ -11,19 +11,19 @@
     <item
         android:id="@+id/basketFragment"
         app:showAsAction="withText"
-        android:icon="@drawable/bg_explore_nav"
+        android:icon="@drawable/bg_basket_nav"
         android:title="Корзина" />
 
     <item
         android:id="@+id/historyFragment"
         app:showAsAction="withText"
-        android:icon="@drawable/bg_live_nav"
+        android:icon="@drawable/bg_history_nav"
         android:title="История" />
 
     <item
         android:id="@+id/infoFragment"
         app:showAsAction="withText"
-        android:icon="@drawable/bg_game_nav"
+        android:icon="@drawable/bg_info_nav"
         android:title="Инфо" />
 
 
