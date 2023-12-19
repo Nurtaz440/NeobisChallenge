@@ -1,10 +1,13 @@
 package com.example.neobischallengeandroidapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,10 +19,16 @@ class MainActivity : AppCompatActivity() {
     val binding get() = _binding!!
     private var navController: NavController? = null
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Set the status bar background color to white
+            window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+
+            // Set the status bar text color to dark
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.appBarLayout)
         val navHost =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -39,7 +48,8 @@ class MainActivity : AppCompatActivity() {
         )
         binding.appBarLayout.setupWithNavController(navController!!, appBarConfiguration)
     }
-//    navController!!.addOnDestinationChangedListener { _, destination, _ ->
+
+    //    navController!!.addOnDestinationChangedListener { _, destination, _ ->
 //
 //        if (destination.id == R.id.welcomFragment || destination.id == R.id.exploreFragment
 //            || destination.id == R.id.gameFragment || destination.id == R.id.favouriteFragment
@@ -70,16 +80,16 @@ class MainActivity : AppCompatActivity() {
 //}
 //
 //
-//override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-//    menu!!.clear()
-//    menuInflater.inflate(R.menu.action_bar, menu)
-//    return super.onPrepareOptionsMenu(menu)
-//}
-//
-//override fun onDestroy() {
-//    super.onDestroy()
-//    _binding = null
-//}
+//    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+//        menu!!.clear()
+//        menuInflater.inflate(R.menu.bottom_menu, menu)
+//        return super.onPrepareOptionsMenu(menu)
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 //
 //@Deprecated("Deprecated in Java")
 //override fun onBackPressed() {
