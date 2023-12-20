@@ -33,29 +33,24 @@ class HomeFragment : Fragment() {
          return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arrayList = ArrayList()
         homeAdapter = HomeAdapter()
-        setRecyclerView()
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // Observe the LiveData and update UI accordingly
         viewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
             // Update your UI with the categories data
             // For example, you can use an adapter for RecyclerView
-            arrayList.add(categories)
-            homeAdapter.setData(arrayList)
-
+            homeAdapter.setData(categories)
+            with(binding.rvPopular){
+                layoutManager= GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
+                setHasFixedSize(true)
+                adapter=homeAdapter
+            }
         })
 
         // Make the API call when the activity is created or whenever needed
         viewModel.getAllCategories()
 
     }
-    private fun setRecyclerView(){
-        with(binding.rvPopular){
-            layoutManager= GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
-            setHasFixedSize(true)
-            adapter=homeAdapter
-        }
-    }
+
 }

@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 
 class HomeViewModel  : ViewModel() {
-    private val _categories = MutableLiveData<CategoryModel>()
-    val categories: LiveData<CategoryModel> get() = _categories
+    private val _categories = MutableLiveData<List<CategoryModel>>()
+    val categories: LiveData<List<CategoryModel>> get() = _categories
     // Function to make the API call and update the LiveData
     fun getAllCategories() {
         viewModelScope.launch {

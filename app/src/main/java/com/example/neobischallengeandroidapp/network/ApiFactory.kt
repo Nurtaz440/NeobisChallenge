@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface ApiFactory {
     @GET("product-category-list/")
-    suspend fun getAllCategories(): CategoryModel
+    suspend fun getAllCategories(): List<CategoryModel>
 }
