@@ -7,7 +7,15 @@ import coil.load
 import com.example.neobischallengeandroidapp.databinding.ItemProductBinding
 import com.example.neobischallengeandroidapp.module.CategoryModel
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.CategoryViewHolder>() {
+class HomeAdapter(private val onClickListener:(Int)->Unit) : RecyclerView.Adapter<HomeAdapter.CategoryViewHolder>() {
+    private lateinit var listener:OnItemClickListener
+    interface OnItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener : OnItemClickListener){
+        this.listener = listener
+    }
 
     private val categoryList = arrayListOf<CategoryModel>()
     var onClick: (String) -> Unit = {}
@@ -33,6 +41,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.CategoryViewHolder>() {
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(categoryList[position], onClick)
+        holder.itemView.setOnClickListener {
+            onClickListener.invoke(position)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.neobischallengeandroidapp.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/basketFragment"
         android:name="com.example.neobischallengeandroidapp.ui.basket.BasketFragment"
@@ -25,4 +29,9 @@
         android:name="com.example.neobischallengeandroidapp.ui.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.neobischallengeandroidapp.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

@@ -2,10 +2,7 @@ package com.example.neobischallengeandroidapp
 
 import android.os.Build
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -47,16 +44,18 @@ class MainActivity : AppCompatActivity() {
             )
         )
         binding.appBarLayout.setupWithNavController(navController!!, appBarConfiguration)
-    }
 
-    //    navController!!.addOnDestinationChangedListener { _, destination, _ ->
-//
-//        if (destination.id == R.id.welcomFragment || destination.id == R.id.exploreFragment
-//            || destination.id == R.id.gameFragment || destination.id == R.id.favouriteFragment
-//        ) {
-//            binding.appBarLayout.visibility = View.VISIBLE
-//            binding.navView.visibility = View.VISIBLE
-//        } else if (destination.id == R.id.liveFragment) {
+        navController!!.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.infoFragment) {
+                binding.appBarLayout.visibility = View.GONE
+                binding.navView.visibility = View.VISIBLE
+            }else{
+                binding.appBarLayout.visibility = View.VISIBLE
+                binding.navView.visibility = View.VISIBLE
+            }
+        }
+    }
+    //else if (destination.id == R.id.liveFragment) {
 //            binding.appBarLayout.visibility = View.GONE
 //            binding.navView.visibility = View.VISIBLE
 //        } else if (destination.id == R.id.countryDetailFragment || destination.id == R.id.favouriteFragment) {

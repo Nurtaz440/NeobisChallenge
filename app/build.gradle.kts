@@ -67,6 +67,8 @@ dependencies {
     implementation(libs.retrofiteGson)
     implementation(libs.gson)
     implementation(libs.lottie)
+    implementation(libs.materailsearchbar)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

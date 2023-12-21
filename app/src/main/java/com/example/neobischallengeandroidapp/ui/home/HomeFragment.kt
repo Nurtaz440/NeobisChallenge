@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.neobischallengeandroidapp.R
 import com.example.neobischallengeandroidapp.adapter.HomeAdapter
@@ -24,7 +25,6 @@ class HomeFragment : Fragment() {
     lateinit var homeAdapter: HomeAdapter
 
     lateinit var viewModel: HomeViewModel
-    lateinit var arrayList: ArrayList<CategoryModel>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +33,20 @@ class HomeFragment : Fragment() {
          return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        homeAdapter = HomeAdapter()
+        requireActivity().window.statusBarColor = resources.getColor(R.color.white)
+        homeAdapter = HomeAdapter { position->
+            when(position){
+                0->{
+                    findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+                }
+                1->{
+                    findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+                }
+                else->{
+                    findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+                }
+            }
+        }
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // Observe the LiveData and update UI accordingly
@@ -46,6 +59,7 @@ class HomeFragment : Fragment() {
                 setHasFixedSize(true)
                 adapter=homeAdapter
             }
+
         })
 
         // Make the API call when the activity is created or whenever needed
