@@ -5,10 +5,12 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_category"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="32dp"
+        app:cardBackgroundColor="@color/white"
         app:cardElevation="1dp"
         android:elevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="Фрукты"
                 android:textColor="@color/grey"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:textStyle="bold"

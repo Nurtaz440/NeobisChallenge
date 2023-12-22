@@ -46,9 +46,12 @@ class MainActivity : AppCompatActivity() {
         binding.appBarLayout.setupWithNavController(navController!!, appBarConfiguration)
 
         navController!!.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.infoFragment) {
+            if (destination.id == R.id.infoFragment ) {
                 binding.appBarLayout.visibility = View.GONE
                 binding.navView.visibility = View.VISIBLE
+            }else if (destination.id == R.id.detailFragment) {
+                binding.appBarLayout.visibility = View.GONE
+                binding.navView.visibility = View.GONE
             }else{
                 binding.appBarLayout.visibility = View.VISIBLE
                 binding.navView.visibility = View.VISIBLE
