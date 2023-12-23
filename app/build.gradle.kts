@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.lottie)
     implementation(libs.materailsearchbar)
+    implementation(libs.volley)
 
 
     testImplementation(libs.junit)

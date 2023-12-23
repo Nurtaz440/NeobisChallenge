@@ -33,5 +33,16 @@
         android:id="@+id/detailFragment"
         android:name="com.example.neobischallengeandroidapp.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="postionSelected"
+            app:argType="integer"
+            android:defaultValue="0"
+            />
+    </fragment>
 </navigation>
