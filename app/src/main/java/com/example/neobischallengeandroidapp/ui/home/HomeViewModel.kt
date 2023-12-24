@@ -24,47 +24,6 @@ class HomeViewModel : ViewModel() {
     private val _detailCategory = MutableLiveData<List<DetailModel>>()
     val detailCategory: LiveData<List<DetailModel>> get() = _detailCategory
 
-    fun searchByCategory(categoryName: String, id: Int) {
-     //   viewModelScope.launch {
-//            val response =
-//                Constants.apiService.getDetailCategories().plus("?category_name=" + categoryName)
-//            _detailCategory.value = response
-//
-//            val queue = (getApplication() as ShoppingApp).requestQueue
-//
-//            val url = Constants.PRODUCT_URL + "?category_name=" + categoryName
-//            val request = StringRequest(Request.Method.GET, url, { response ->
-               // try {
-               //     val objProducts = JSONObject(response)
-//                    if (objProducts.getString("status") == "success") {
-//                        val productArray = objProducts.getJSONArray("products")
-//                        for (i in 0 until productArray.length() step 1) {
-//                            val childObj = productArray.getJSONObject(i)
-//                            val product = Product(
-//                                childObj.getString("name"),
-//                                Constants.PRODUCTS_IMAGE_URL + childObj.getString("image"),
-//                                childObj.getString("status"),
-//                                childObj.getDouble("price"),
-//                                childObj.getDouble("price_discount"),
-//                                childObj.getInt("stock"),
-//                                childObj.getInt("id"),
-//                            )
-//                            productList.add(product)
-//                        }
-//                        productAdapter.notifyDataSetChanged()
-//                    } else {
-//                        // do nothing
-//                    }
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//
-//            }, {
-//                // textView.text = "That didn't work!"
-//            })
-//            queue.add(request)
-
-    }
 
 
     // Function to make the API call and update the LiveData

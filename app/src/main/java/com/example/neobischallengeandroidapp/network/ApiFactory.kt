@@ -10,6 +10,6 @@ interface ApiFactory {
     suspend fun getAllCategories(): List<CategoryModel>
 
     @GET("product-list/")
-    suspend fun getProducts(@Query("?category_name=") categoryName: String): List<DetailModel>
+    suspend fun getProducts(@Query("category_name") categoryName: String): List<DetailModel>
 
 }

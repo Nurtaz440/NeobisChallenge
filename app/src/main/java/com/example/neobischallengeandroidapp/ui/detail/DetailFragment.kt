@@ -1,6 +1,7 @@
 package com.example.neobischallengeandroidapp.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,14 +36,16 @@ class DetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        horizonlatAdpater = Horizontaladapter { }
+        horizonlatAdpater = Horizontaladapter(requireContext()) { }
+        verticalAdapter = VerticalAdapter()
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // Observe the LiveData and update UI accordingly
         viewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
             // Update your UI with the categories data
             // For example, you can use an adapter for RecyclerView
-            horizonlatAdpater.setData(categories)
+            val id = args.postionSelected
+            horizonlatAdpater.setData(categories,id)
             with(binding.rvCategory) {
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 setHasFixedSize(true)
@@ -61,14 +64,11 @@ class DetailFragment : Fragment() {
             }
         })
 
-        // Trigger the network request
-
         // Make the API call when the activity is created or whenever needed
         viewModel.getAllCategories()
         val name = args.categoryName
-        val id = args.postionSelected
+        Log.d("TAG", "onViewCreated: $name")
         viewModel.fetchProducts(name!!)
-       // viewModel.searchByCategory(name!!, id)
     }
 
 }

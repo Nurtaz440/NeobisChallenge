@@ -7,7 +7,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_category"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="305dp"
         android:layout_margin="6dp"
         android:elevation="1dp"
         app:cardBackgroundColor="@color/light_grey"
@@ -22,11 +22,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:weightSum="4"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:layout_margin="8dp"
                 android:elevation="0dp"
                 app:cardBackgroundColor="@color/white"
@@ -39,7 +41,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/unsplash" />
 
@@ -48,31 +49,34 @@
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.9"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="16dp"
                 android:text="Яблоко золотая радуга"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="56 c"
                 android:textColor="@color/green_selected_color"
-                android:textSize="32sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.7"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24sp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="@color/green_selected_color"

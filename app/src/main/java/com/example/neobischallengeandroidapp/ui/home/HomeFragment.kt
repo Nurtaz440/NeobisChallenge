@@ -49,10 +49,23 @@ class HomeFragment : Fragment() {
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(name,1))
                     }
 
-                    else -> {
+                    2 -> {
                         val name = categories.get(position).name
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(name,2))
                     }
+                    3 -> {
+                        val name = categories.get(position).name
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(name,3))
+                    }
+                    4 -> {
+                        val name = categories.get(position).name
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(name,4))
+                    }
+                    5 -> {
+                        val name = categories.get(position).name
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(name,5))
+                    }
+
                 }
             }
             // For example, you can use an adapter for RecyclerView

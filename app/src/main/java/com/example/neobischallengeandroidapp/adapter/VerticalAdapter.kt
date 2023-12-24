@@ -28,7 +28,7 @@ class VerticalAdapter: RecyclerView.Adapter<VerticalAdapter.CategoryViewHolder>(
         val tv_name = cardCategoryBinding.tvName
         fun bind(category: DetailModel) {
             cardCategoryBinding.tvName.text = category.title
-            cardCategoryBinding.tvPrice.text = NumberFormat.getCurrencyInstance().format(category.price)
+            cardCategoryBinding.tvPrice.text = NumberFormat.getCurrencyInstance().format(category.price) + " c"
         }
 
     }
