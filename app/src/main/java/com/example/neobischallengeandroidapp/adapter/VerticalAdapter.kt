@@ -1,6 +1,7 @@
 package com.example.neobischallengeandroidapp.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -16,6 +17,8 @@ class VerticalAdapter: RecyclerView.Adapter<VerticalAdapter.CategoryViewHolder>(
 
     private val categoryList = arrayListOf<DetailModel>()
 
+    var addProduct = false
+
     fun setData(itemList: List<DetailModel>) {
         categoryList.clear()
         categoryList.addAll(itemList)
@@ -26,6 +29,8 @@ class VerticalAdapter: RecyclerView.Adapter<VerticalAdapter.CategoryViewHolder>(
         RecyclerView.ViewHolder(cardCategoryBinding.root) {
         val image = cardCategoryBinding.ivProduct
         val tv_name = cardCategoryBinding.tvName
+        val btn_add = cardCategoryBinding.btnAdd
+        val rel_btn = cardCategoryBinding.relCount
         fun bind(category: DetailModel) {
             cardCategoryBinding.tvName.text = category.title
             cardCategoryBinding.tvPrice.text = NumberFormat.getCurrencyInstance().format(category.price) + " c"
@@ -43,6 +48,18 @@ class VerticalAdapter: RecyclerView.Adapter<VerticalAdapter.CategoryViewHolder>(
 
         holder.bind(categoryList[position])
         holder.image.load(categoryList[position].image)
+
+        holder.btn_add.setOnClickListener {
+            if (addProduct) {
+                holder.rel_btn.visibility = View.GONE
+                holder.btn_add.visibility = View.VISIBLE
+                addProduct = true
+            } else {
+                holder.rel_btn.visibility = View.VISIBLE
+                holder.btn_add.visibility = View.GONE
+                addProduct = false
+            }
+        }
     }
 
     override fun getItemCount(): Int {

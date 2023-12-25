@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.neobischallengeandroidapp.adapter.Horizontaladapter
 import com.example.neobischallengeandroidapp.adapter.VerticalAdapter
 import com.example.neobischallengeandroidapp.databinding.FragmentDetailBinding
+import com.example.neobischallengeandroidapp.module.CategoryModel
+import com.example.neobischallengeandroidapp.module.DetailModel
 import com.example.neobischallengeandroidapp.ui.home.HomeViewModel
 
 
@@ -27,6 +29,8 @@ class DetailFragment : Fragment() {
     lateinit var viewModel: HomeViewModel
 
     private val args: DetailFragmentArgs by navArgs()
+    var itemPosition = 0
+    val arrayList = ArrayList<CategoryModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +40,11 @@ class DetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        horizonlatAdpater = Horizontaladapter(requireContext()) { }
+        horizonlatAdpater = Horizontaladapter(requireContext()) { selectedPosition->
+            horizonlatAdpater.updateSelectedItem(selectedPosition)
+
+            viewModel.fetchProducts(arrayList[selectedPosition].name!!)
+        }
         verticalAdapter = VerticalAdapter()
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
@@ -44,6 +52,7 @@ class DetailFragment : Fragment() {
         viewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
             // Update your UI with the categories data
             // For example, you can use an adapter for RecyclerView
+            arrayList.addAll(categories)
             val id = args.postionSelected
             horizonlatAdpater.setData(categories,id)
             with(binding.rvCategory) {
