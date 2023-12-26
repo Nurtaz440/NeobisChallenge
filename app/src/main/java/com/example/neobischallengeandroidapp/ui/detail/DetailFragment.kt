@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.neobischallengeandroidapp.R
 import com.example.neobischallengeandroidapp.adapter.Horizontaladapter
 import com.example.neobischallengeandroidapp.adapter.VerticalAdapter
 import com.example.neobischallengeandroidapp.databinding.FragmentDetailBinding
@@ -29,7 +31,6 @@ class DetailFragment : Fragment() {
     lateinit var viewModel: HomeViewModel
 
     private val args: DetailFragmentArgs by navArgs()
-    var itemPosition = 0
     val arrayList = ArrayList<CategoryModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +43,11 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         horizonlatAdpater = Horizontaladapter(requireContext()) { selectedPosition->
             horizonlatAdpater.updateSelectedItem(selectedPosition)
-
             viewModel.fetchProducts(arrayList[selectedPosition].name!!)
         }
-        verticalAdapter = VerticalAdapter()
+        verticalAdapter = VerticalAdapter{ id ->
+            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToBottomDialogFragment())
+        }
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // Observe the LiveData and update UI accordingly

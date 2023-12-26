@@ -12,7 +12,7 @@ import com.example.neobischallengeandroidapp.module.CategoryModel
 import com.example.neobischallengeandroidapp.module.DetailModel
 import java.text.NumberFormat
 
-class VerticalAdapter: RecyclerView.Adapter<VerticalAdapter.CategoryViewHolder>() {
+class VerticalAdapter(val onClick : (Int) -> Unit): RecyclerView.Adapter<VerticalAdapter.CategoryViewHolder>() {
 
 
     private val categoryList = arrayListOf<DetailModel>()
@@ -48,6 +48,10 @@ class VerticalAdapter: RecyclerView.Adapter<VerticalAdapter.CategoryViewHolder>(
 
         holder.bind(categoryList[position])
         holder.image.load(categoryList[position].image)
+
+        holder.itemView.setOnClickListener {
+            onClick.invoke(position)
+        }
 
         holder.btn_add.setOnClickListener {
             if (addProduct) {

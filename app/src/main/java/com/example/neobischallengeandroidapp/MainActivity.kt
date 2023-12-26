@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             if (destination.id == R.id.infoFragment ) {
                 binding.appBarLayout.visibility = View.GONE
                 binding.navView.visibility = View.VISIBLE
-            }else if (destination.id == R.id.detailFragment) {
+            }else if (destination.id == R.id.detailFragment || destination.id == R.id.bottomDialogFragment) {
                 binding.appBarLayout.visibility = View.GONE
                 binding.navView.visibility = View.GONE
             }else{
