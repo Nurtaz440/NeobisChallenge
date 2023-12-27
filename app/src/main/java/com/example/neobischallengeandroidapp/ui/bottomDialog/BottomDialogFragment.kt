@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import coil.load
 import com.example.neobischallengeandroidapp.R
 import com.example.neobischallengeandroidapp.databinding.FragmentBottomDialogBinding
 import com.example.neobischallengeandroidapp.databinding.FragmentDetailBinding
+import com.example.neobischallengeandroidapp.ui.detail.DetailFragmentArgs
 import com.example.neobischallengeandroidapp.ui.detail.DetailVIewModel
 import com.example.neobischallengeandroidapp.ui.home.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -21,6 +24,8 @@ class BottomDialogFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentBottomDialogBinding? = null
     val binding get() = _binding!!
     lateinit var viewModel: DetailVIewModel
+
+    private val args: BottomDialogFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +54,8 @@ class BottomDialogFragment : BottomSheetDialogFragment() {
             btnMinus.setOnClickListener {
                 viewModel.decrementCount()
             }
+            tvDesc.text = args.product!!.description
+            ivProduct.load(args.product!!.image)
         }
 
 

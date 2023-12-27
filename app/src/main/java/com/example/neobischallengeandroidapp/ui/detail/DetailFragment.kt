@@ -32,6 +32,7 @@ class DetailFragment : Fragment() {
 
     private val args: DetailFragmentArgs by navArgs()
     val arrayList = ArrayList<CategoryModel>()
+    val arrayListVertical = ArrayList<DetailModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +47,7 @@ class DetailFragment : Fragment() {
             viewModel.fetchProducts(arrayList[selectedPosition].name!!)
         }
         verticalAdapter = VerticalAdapter{ id ->
-            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToBottomDialogFragment())
+            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToBottomDialogFragment(arrayListVertical[id]))
         }
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
@@ -67,6 +68,7 @@ class DetailFragment : Fragment() {
         viewModel.detailCategory.observe(viewLifecycleOwner, { products ->
             // Update UI with the list of products
             // e.g., update RecyclerView adapter
+            arrayListVertical.addAll(products)
             verticalAdapter.setData(products)
             with(binding.rvVerticalCategory) {
                 layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)

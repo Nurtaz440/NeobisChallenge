@@ -55,6 +55,6 @@
         <argument
             android:name="product"
             app:argType="com.example.neobischallengeandroidapp.module.DetailModel"
-            app:nullable="true" />
+           />
     </dialog>
 </navigation>
