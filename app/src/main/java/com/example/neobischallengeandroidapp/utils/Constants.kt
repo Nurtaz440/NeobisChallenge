@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 // const val BASE_URL = "https://neobook.online/ecobak/"
    object Constants {
        private const val BASE_URL = "https://neobook.online/ecobak/"
-       const val PRODUCT_URL = BASE_URL + "product-list/"
+       const val GET_PRODUCTS_URL = BASE_URL + "product-list/"
 
        private val retrofit: Retrofit by lazy {
            Retrofit.Builder()

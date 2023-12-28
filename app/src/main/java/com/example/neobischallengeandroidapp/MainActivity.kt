@@ -46,60 +46,29 @@ class MainActivity : AppCompatActivity() {
         binding.appBarLayout.setupWithNavController(navController!!, appBarConfiguration)
 
         navController!!.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.infoFragment ) {
+            if (destination.id == R.id.infoFragment) {
                 binding.appBarLayout.visibility = View.GONE
                 binding.navView.visibility = View.VISIBLE
-            }else if (destination.id == R.id.detailFragment || destination.id == R.id.bottomDialogFragment) {
+            } else if (destination.id == R.id.detailFragment || destination.id == R.id.bottomDialogFragment) {
                 binding.appBarLayout.visibility = View.GONE
                 binding.navView.visibility = View.GONE
-            }else{
+            } else {
                 binding.appBarLayout.visibility = View.VISIBLE
                 binding.navView.visibility = View.VISIBLE
             }
+
+            if (destination.id == R.id.basketFragment){
+                binding.tvMainName.text = getString(R.string.basket_name)
+            } else if (destination.id == R.id.historyFragment) {
+                binding.tvMainName.text = getString(R.string.history_name)
+            } else {
+                binding.tvMainName.text = getString(R.string.home_name)
+            }
         }
     }
-    //else if (destination.id == R.id.liveFragment) {
-//            binding.appBarLayout.visibility = View.GONE
-//            binding.navView.visibility = View.VISIBLE
-//        } else if (destination.id == R.id.countryDetailFragment || destination.id == R.id.favouriteFragment) {
-//            binding.appBarLayout.visibility = View.VISIBLE
-//            binding.navView.visibility = View.GONE
-//        } else {
-//            binding.appBarLayout.visibility = View.GONE
-//            binding.navView.visibility = View.GONE
-//        }
-//
-//        if (destination.id == R.id.welcomFragment || destination.id == R.id.exploreFragment) {
-//            binding.tvMainName.text = getString(R.string.app_name)
-//        } else if (destination.id == R.id.liveFragment) {
-//            binding.tvMainName.text = getString(R.string.live)
-//        } else if (destination.id == R.id.gameFragment) {
-//            binding.tvMainName.text = getString(R.string.game)
-//        } else if (destination.id == R.id.favouriteFragment) {
-//            binding.tvMainName.text = getString(R.string.favourite)
-//        }
-//    }
-//}
-//
-//
-//    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-//        menu!!.clear()
-//        menuInflater.inflate(R.menu.bottom_menu, menu)
-//        return super.onPrepareOptionsMenu(menu)
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-//
-//@Deprecated("Deprecated in Java")
-//override fun onBackPressed() {
-//    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-//    if (navController!!.currentDestination!!.id == R.id.welcomFragment){
-//        finish()
-//    }else{
-//        super.onBackPressed()
-//    }
-//}
 }

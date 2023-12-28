@@ -69,7 +69,7 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.materailsearchbar)
     implementation(libs.volley)
-
+    implementation(libs.textTicker)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

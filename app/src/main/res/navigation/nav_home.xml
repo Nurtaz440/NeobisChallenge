@@ -46,15 +46,32 @@
         <action
             android:id="@+id/action_detailFragment_to_bottomDialogFragment"
             app:destination="@id/bottomDialogFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <dialog
         android:id="@+id/bottomDialogFragment"
         android:name="com.example.neobischallengeandroidapp.ui.bottomDialog.BottomDialogFragment"
         android:label="fragment_bottom_dialog"
-        tools:layout="@layout/fragment_bottom_dialog" >
+        tools:layout="@layout/fragment_bottom_dialog">
         <argument
             android:name="product"
-            app:argType="com.example.neobischallengeandroidapp.module.DetailModel"
-           />
+            app:argType="com.example.neobischallengeandroidapp.module.DetailModel" />
     </dialog>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.neobischallengeandroidapp.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+
+        <argument
+            android:name="query"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_searchFragment_to_bottomDialogFragment"
+            app:destination="@id/bottomDialogFragment" />
+
+    </fragment>
 </navigation>

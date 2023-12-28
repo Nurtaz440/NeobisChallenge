@@ -13,13 +13,19 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.neobischallengeandroidapp.R
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
 import com.example.neobischallengeandroidapp.adapter.Horizontaladapter
 import com.example.neobischallengeandroidapp.adapter.VerticalAdapter
 import com.example.neobischallengeandroidapp.databinding.FragmentDetailBinding
 import com.example.neobischallengeandroidapp.module.CategoryModel
 import com.example.neobischallengeandroidapp.module.DetailModel
+import com.example.neobischallengeandroidapp.room.BasketViewModel
 import com.example.neobischallengeandroidapp.ui.home.HomeViewModel
+import com.example.neobischallengeandroidapp.utils.Constants
+import com.mancj.materialsearchbar.MaterialSearchBar
+import org.json.JSONArray
 
 
 class DetailFragment : Fragment() {
@@ -29,27 +35,44 @@ class DetailFragment : Fragment() {
     lateinit var verticalAdapter: VerticalAdapter
 
     lateinit var viewModel: HomeViewModel
+    private lateinit var basketViewModel: BasketViewModel
 
     private val args: DetailFragmentArgs by navArgs()
     val arrayList = ArrayList<CategoryModel>()
     val arrayListVertical = ArrayList<DetailModel>()
+    val arrayListSearch = ArrayList<DetailModel>()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        horizonlatAdpater = Horizontaladapter(requireContext()) { selectedPosition->
+        horizonlatAdpater = Horizontaladapter(requireContext()) { selectedPosition ->
+            binding.rvVerticalCategory.visibility = View.VISIBLE
+            binding.rvVerticalSearch.visibility = View.GONE
             horizonlatAdpater.updateSelectedItem(selectedPosition)
             viewModel.fetchProducts(arrayList[selectedPosition].name!!)
         }
-        verticalAdapter = VerticalAdapter{ id ->
-            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToBottomDialogFragment(arrayListVertical[id]))
+        verticalAdapter = VerticalAdapter { id ->
+            basketViewModel.insertProduct(product)
+            findNavController().navigate(
+                DetailFragmentDirections.actionDetailFragmentToBottomDialogFragment(
+                    arrayListVertical[id]
+                )
+            )
         }
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+// Initialize ViewModel
+        basketViewModel = ViewModelProvider(this).get(BasketViewModel::class.java)
+        // Observe changes in products
+        basketViewModel.allProducts.observe(viewLifecycleOwner, Observer { products ->
+            // Update your UI or perform actions when products change
+        })
+
+
+
 
         // Observe the LiveData and update UI accordingly
         viewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
@@ -57,7 +80,7 @@ class DetailFragment : Fragment() {
             // For example, you can use an adapter for RecyclerView
             arrayList.addAll(categories)
             val id = args.postionSelected
-            horizonlatAdpater.setData(categories,id)
+            horizonlatAdpater.setData(categories, id)
             with(binding.rvCategory) {
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 setHasFixedSize(true)
@@ -82,6 +105,93 @@ class DetailFragment : Fragment() {
         val name = args.categoryName
         Log.d("TAG", "onViewCreated: $name")
         viewModel.fetchProducts(name!!)
+
+        binding.searchBar.setOnSearchActionListener(object :
+            MaterialSearchBar.OnSearchActionListener {
+            override fun onSearchStateChanged(enabled: Boolean) {
+
+            }
+
+            override fun onSearchConfirmed(text: CharSequence?) {
+                arrayListSearch.clear()
+                getProducts(text.toString())
+                binding.rvVerticalCategory.visibility = View.GONE
+                binding.rvVerticalSearch.visibility = View.VISIBLE
+                //   findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToSearchFragment(text.toString()))
+            }
+
+            override fun onButtonClicked(buttonCode: Int) {
+
+            }
+
+        })
     }
 
+    private fun getProducts(query: String) {
+        val queue = Volley.newRequestQueue(requireContext())
+
+        val url = Constants.GET_PRODUCTS_URL + "?search=" + query
+
+        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url, null, { response ->
+            // Handle the response
+            Log.e("Response from search", response.toString())
+            if (response.length() == 0) {
+                binding.llError.visibility = View.VISIBLE
+                binding.rvVerticalCategory.visibility = View.GONE
+                binding.rvVerticalSearch.visibility = View.GONE
+            } else {
+                binding.llError.visibility = View.GONE
+                handleSearchResponse(response)
+            }
+        }, { error ->
+            // Handle errors
+            Log.e("Volley Error", error.toString())
+        })
+        queue.add(jsonArrayRequest)
+    }
+
+    private fun handleSearchResponse(response: JSONArray) {
+
+        for (i in 0 until response.length()) {
+            val product = response.getJSONObject(i)
+            val productId = product.getInt("id")
+            val productTitle = product.getString("title")
+            val productDesc = product.getString("description")
+            val productCategory = product.getInt("category")
+            val productImage = product.getString("image")
+            val productQuantity = product.getInt("quantity")
+            val productPrice = product.getDouble("price")
+
+            //  Log.e("Response from search",productTitle.toString())
+
+            arrayListSearch.add(
+                DetailModel(
+                    productId,
+                    productTitle,
+                    productDesc,
+                    productCategory,
+                    productImage,
+                    productQuantity,
+                    productPrice
+                )
+            )
+
+
+        }
+        verticalAdapter = VerticalAdapter { id ->
+            findNavController().navigate(
+                DetailFragmentDirections.actionDetailFragmentToBottomDialogFragment(
+                    arrayListSearch[id]
+                )
+            )
+        }
+        verticalAdapter.setData(arrayListSearch)
+        with(binding.rvVerticalSearch) {
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+            setHasFixedSize(true)
+            adapter = verticalAdapter
+        }
+
+
+    }
 }

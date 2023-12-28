@@ -22,6 +22,7 @@ gson_version = "2.8.9"
 lottie_version = "5.1.1"
 searchbar = "0.8.5"
 volley = "1.2.1"
+ticker = "2.0.4"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -50,6 +51,9 @@ lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie_
 swiper = { group = "androidx.swiperefreshlayout",name = "swiperefreshlayout", version.ref = "swiperArg"}
 materailsearchbar = { group = "com.github.mancj", name = "MaterialSearchBar", version.ref = "searchbar"}
 volley = { group = "com.android.volley",name = "volley", version.ref = "volley"}
+textTicker = {group = "com.robinhood.ticker", name = "ticker",version.ref="ticker"}
+
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
